@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 module.exports = app;
 
 //Api
-var API_Rules = require('./api/API_Rules');
+var API_Rules = require('./routes/API_Rules');
 app.use('/API_Rules', API_Rules);
 
 

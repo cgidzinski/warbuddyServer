@@ -1,20 +1,12 @@
 var express = require('express');
 var router = express.Router();
+
 var mongoose = require('mongoose');
-
-var RulesSchema = new mongoose.Schema({
-  name: String,
-  completed: Boolean,
-  note: String,
-  updated_at: { type: Date, default: Date.now },
-});
-
-
-
+var API = require('../models/Rules_Schemas.js');
 
 /* GET /todos listing. */
 router.get('/', function(req, res, next) {
-  Todo.find(function (err, todos) {
+  API.find(function (err, todos) {
     if (err) return next(err);
     res.json(todos);
   });
@@ -23,7 +15,7 @@ router.get('/', function(req, res, next) {
 
 /* POST /todos */
 router.post('/', function(req, res, next) {
-  Todo.create(req.body, function (err, post) {
+  API.create(req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -32,7 +24,7 @@ router.post('/', function(req, res, next) {
 
 /* GET /todos/id */
 router.get('/:id', function(req, res, next) {
-  Todo.findById(req.params.id, function (err, post) {
+  API.findById(req.params.id, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
@@ -40,7 +32,7 @@ router.get('/:id', function(req, res, next) {
 
 /* DELETE /todos/:id */
 router.delete('/:id', function(req, res, next) {
-  Todo.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+  API.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });

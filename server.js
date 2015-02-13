@@ -39,6 +39,11 @@ app.use('/*', function(req, res){
   res.sendFile(__dirname + '/public/index.html');
 });
 
+
+//Api
+var API_Rules = require('./routes/API_Rules');
+app.use('/API_Rules', API_Rules);
+
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 });

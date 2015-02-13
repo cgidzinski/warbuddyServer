@@ -1,9 +1,3 @@
-var allowCrossDomain = function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-}
-
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -26,7 +20,7 @@ mongoose.connect('mongodb://localhost/WarbuddyServer', function(err) {
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3001);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -36,8 +30,9 @@ app.use(allowCrossDomain);
 module.exports = app;
 
 //Api
-var todos = require('./routes/todos');
-app.use('/todos', todos);
+var API_Rules = require('./api/API_Rules');
+app.use('/API_Rules', API_Rules);
+
 
 app.set('views', __dirname + '/');
 app.set('files', __dirname + '/');

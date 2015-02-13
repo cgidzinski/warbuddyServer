@@ -1,8 +1,16 @@
 var express = require('express');
 var router = express.Router();
-
 var mongoose = require('mongoose');
-var Todo = require('../models/Todo.js');
+
+var RulesSchema = new mongoose.Schema({
+  name: String,
+  completed: Boolean,
+  note: String,
+  updated_at: { type: Date, default: Date.now },
+});
+
+
+
 
 /* GET /todos listing. */
 router.get('/', function(req, res, next) {

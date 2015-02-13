@@ -1,0 +1,36 @@
+<div class="container">
+
+   
+        <div class="col-lg-12">
+            <h1 class="page-header">{{title}}
+                <small>{{titleSubtext}}</small>
+            </h1>
+        </div>
+   
+
+    <div class="row">
+
+        <div class="col-lg-8">
+
+            <!-- the actual blog post: title/author/date/content -->
+           
+            <p><i class="fa fa-clock-o"></i> {{date}} by <a ui-sref="about">Colin Gidzinski</a>
+            </p>
+            <hr>
+            <img src="{{image}}" class="img-responsive">
+            <hr>
+            <p class="lead">{{quickDescription}}</p>
+
+            <p>{{mainText}}</p>
+
+            <p><strong>Links:</strong>
+            </p>
+            <ul ng-repeat="item in links">
+                <li><a href="{{item.url}}">{{item.text}}</a></li>
+            </ul>
+            <hr>
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->

@@ -41,6 +41,9 @@ app.use('/API_Rules', API_Rules);
 var API_Weapons = require('./routes/API_Weapons');
 app.use('/API_Weapons', API_Weapons);
 
+var API_Units = require('./routes/API_Units');
+app.use('/API_Units', API_Units);
+
 app.set('views', __dirname + '/');
 app.set('files', __dirname + '/');
 app.use(express.static(__dirname + "/public"));

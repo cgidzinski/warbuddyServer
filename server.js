@@ -16,9 +16,9 @@ var app = express();
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/WarbuddyServer', function(err) {
     if(err) {
-        console.log('connection error', err);
+        console.log('DB connection error', err);
     } else {
-        console.log('connection successful');
+        console.log('DB connection successful');
     }
 });
 
@@ -38,6 +38,8 @@ module.exports = app;
 var API_Rules = require('./routes/API_Rules');
 app.use('/API_Rules', API_Rules);
 
+var API_Weapons = require('./routes/API_Weapons');
+app.use('/API_Weapons', API_Weapons);
 
 app.set('views', __dirname + '/');
 app.set('files', __dirname + '/');

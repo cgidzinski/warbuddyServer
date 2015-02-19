@@ -34,6 +34,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(allowCrossDomain);
 module.exports = app;
 
+
+
+app.set('views', __dirname + '/');
+app.set('files', __dirname + '/');
+app.use(express.static(__dirname + "/public"));
+app.use('/*', function(req, res){
+  res.sendFile(__dirname + '/public/index.html');
+});
+
 //Api
 var API_Rules = require('./routes/API_Rules');
 app.use('/API_Rules', API_Rules);
@@ -43,18 +52,6 @@ app.use('/API_Weapons', API_Weapons);
 
 var API_Units = require('./routes/API_Units');
 app.use('/API_Units', API_Units);
-
-app.set('views', __dirname + '/');
-app.set('files', __dirname + '/');
-app.use(express.static(__dirname + "/public"));
-app.use('/*', function(req, res){
-  res.sendFile(__dirname + '/public/index.html');
-});
-
-
-//Api
-var API_Rules = require('./routes/API_Rules');
-app.use('/API_Rules', API_Rules);
 
 app.listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));

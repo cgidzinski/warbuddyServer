@@ -30,6 +30,14 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
+/* GET /todos/id */
+router.get('/:name', function(req, res, next) {
+  API.findById(req.params.name, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
 /* DELETE /todos/:id */
 router.delete('/:id', function(req, res, next) {
   API.findByIdAndRemove(req.params.id, req.body, function (err, post) {

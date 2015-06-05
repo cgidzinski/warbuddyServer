@@ -212,31 +212,82 @@ case "Tank":        $scope.unit.move = 'Movement: X", Charge: X';        break;
         });
     })
         //////////////////////////////////////////////////////////////////////
-    .controller('addCtrl', function($scope, $http, $state) {
+    .controller('addCtrl', function($scope, $http, $state, $ionicModal) {
         console.log("Add Page Loaded");
-         $http.get('http://evg31337.com:3001/API_Units')
+         
+
+
+        UnitGet();
+
+
+
+$ionicModal.fromTemplateUrl('templates/contact-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal
+  })  
+
+  $scope.openModal = function(item) {
+    $scope.item = item;
+    $scope.modal.show()
+  }
+
+  $scope.closeModal = function(item) {
+
+$http.delete('http://evg31337.com:3001/API_Units/'+item._id) .
+        success(function(data, status, headers, config) {
+             console.log("Connection Ok");
+            console.log(data + status + headers);
+            });
+
+if (item._id != null){
+  item._id = null;  
+}
+$http.post('http://evg31337.com:3001/API_Units/',item) .
+        success(function(data, status, headers, config) {
+             console.log("Connection Ok");
+            console.log(data + status + headers);
+            });
+
+UnitGet();
+
+
+
+
+
+
+    $scope.modal.hide();
+
+  };
+
+  $scope.$on('$destroy', function() {
+    $scope.modal.remove();
+  });
+
+
+
+function UnitGet()
+{
+
+$http.get('http://evg31337.com:3001/API_Units')
             .
         success(function(data, status, headers, config) {
                 $scope.units = data;
             });
 
-//5570596ef5d30f9f0cc235ce
+};
 
-$scope.UnitDelete = function(id) {
-        $http.delete('http://evg31337.com:3001/API_Units/'+id) .
+
+$scope.UnitDelete = function(item) {
+  
+        $http.delete('http://evg31337.com:3001/API_Units/'+item._id) .
         success(function(data, status, headers, config) {
              console.log("Connection Ok");
             console.log(data + status + headers);
-
-            }) .
-        error(function(data, status, headers, config) {
-            //Fail Log
-            console.log("Connection Failed");
-            console.log(data + status + headers);
-        });
+             UnitGet();
+            });
     };
-
-
     })
         //////////////////////////////////////////////////////////////////////
     .controller('ChartCtrl', function($scope, $http, $state) {

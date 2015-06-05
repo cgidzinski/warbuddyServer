@@ -229,6 +229,7 @@ $ionicModal.fromTemplateUrl('templates/contact-modal.html', {
   })  
 
   $scope.openModal = function(item) {
+    alert(item._id);
     $scope.item = item;
     $scope.modal.show()
   }

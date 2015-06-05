@@ -20,6 +20,7 @@ var UnitsSchema = new mongoose.Schema({
   front: String,
   side: String,
   rear: String,
+  movement: String,
   tdate: { type: Date, default: Date.now},
 });
 module.exports = mongoose.model('API_Units', UnitsSchema);

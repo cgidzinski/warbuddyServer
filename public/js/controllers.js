@@ -5,33 +5,7 @@
 
 angular.module('WarBuddy.controllers', ['ngStorage'])
     .controller('HomeCtrl', function($scope, $ionicModal, $localStorage, $stateParams, $state) {
-        //   $ionicModal.fromTemplateUrl('templates/settings.html', {
-        //     scope: $scope,
-        //     animation: 'slide-in-up'
-        //   }).then(function(modal) {
-        //     $scope.modal = modal;
-        //   });
-        //   $scope.openModal = function() {
-        //     $scope.modal.show();
-        //     $scope.InputAddr = angular.copy($localStorage.Repo);
-        //   };
-        //   $scope.closeModal = function() {
-        //    $localStorage.Repo=this.InputAddr;
-        // //UPDATE FILES
-        //     $scope.modal.hide();
-        //   };
-        //   //Cleanup the modal when we're done with it!
-        //   $scope.$on('$destroy', function() {
-        //     $scope.modal.remove();
-        //   });
-        //   // Execute action on hide modal
-        //   $scope.$on('modal.hidden', function() {
-        //     // Execute action
-        //   });
-        //   // Execute action on remove modal
-        //   $scope.$on('modal.removed', function() {
-        //     // Execute action
-        //   });
+
     })
     //////////////////////////////////////////////////////////////////////
     .controller('UnitListCtrl', function($scope, $http, $state) {
@@ -53,13 +27,47 @@ angular.module('WarBuddy.controllers', ['ngStorage'])
     ///////////////////////////
     .controller('UnitCtrl', function($scope, $http, $stateParams) {
         console.log("Unit Detail Page Loaded");
+        $scope.unit=[];
+        $scope.unit.rules=[];
         var id = $stateParams.Id;
         $http.get('http://evg31337.com:3001/API_Units/' + id)
             .
         success(function(data, status, headers, config) {
                 //Success Log
                 $scope.unit = data;
-                console.log(data);
+
+
+switch($scope.unit.type) {
+
+case "Infantry":        $scope.unit.move = 'Movement: 6", Charge: D6';        break;
+case "Jump Infantry":        $scope.unit.move = 'Movement: 12", Charge: 2D6,RR';        break;
+case "Beast":        $scope.unit.move = 'Movement: 12", Charge: 2D6';        break;
+case "Cavalary":        $scope.unit.move = 'Movement: 12", Charge: 2D6';        break;
+case "Bikes":        $scope.unit.move = 'Movement: 12", Charge: 2D6';        break;
+case "Jetbikes":        $scope.unit.move = 'Movement: 12", Charge: 2D6';        break;
+case "Artillery":        $scope.unit.move = 'Movement: 6", Charge:2 D6';        break;
+case "Jet Pack Infantry":        $scope.unit.move = 'Movement: 6", Charge: 2D6';        break;
+case "Monsterous Creature":        $scope.unit.move = 'Movement: 6", Charge: 2D6';        break;
+
+case "Charriots":        $scope.unit.move = 'Movement: X", Charge: 2D6';        break;
+case "Walkers":        $scope.unit.move = 'Movement: 6", Charge: 2D6';        break;
+case "Skimmer":        $scope.unit.move = 'Movement: X", Charge: X';        break;
+case "Flyer":        $scope.unit.move = 'Movement: X", Charge: X';        break;
+case "Tank":        $scope.unit.move = 'Movement: X", Charge: X';        break;
+
+
+    default:
+            $scope.unit.move = 'Movement Not Found';        break;
+} 
+
+
+
+
+
+
+
+
+                                console.log(data);
             })
             .
         error(function(data, status, headers, config) {
@@ -202,6 +210,92 @@ angular.module('WarBuddy.controllers', ['ngStorage'])
             console.log("Connection Failed");
             console.log(data + status + headers);
         });
+    })
+        //////////////////////////////////////////////////////////////////////
+    .controller('addCtrl', function($scope, $http, $state) {
+        console.log("Add Page Loaded");
+         $http.get('http://evg31337.com:3001/API_Units')
+            .
+        success(function(data, status, headers, config) {
+                $scope.units = data;
+            });
+
+//5570596ef5d30f9f0cc235ce
+
+$scope.UnitDelete = function(id) {
+        $http.delete('http://evg31337.com:3001/API_Units/'+id) .
+        success(function(data, status, headers, config) {
+             console.log("Connection Ok");
+            console.log(data + status + headers);
+
+            }) .
+        error(function(data, status, headers, config) {
+            //Fail Log
+            console.log("Connection Failed");
+            console.log(data + status + headers);
+        });
+    };
+
+
+    })
+        //////////////////////////////////////////////////////////////////////
+    .controller('ChartCtrl', function($scope, $http, $state) {
+        console.log("Chart Page Loaded");
+ $scope.tohitroll="";
+$scope.towoundroll = "";
+
+
+$scope.setActivea = function(type) {
+    $scope.activea = type;
+    calcstats();
+};
+
+$scope.isActivea = function(type) {
+    return type === $scope.activea;
+};
+
+$scope.setActiveb = function(type) {
+    $scope.activeb = type;
+    calcstats();
+};
+
+$scope.isActiveb = function(type) {
+    return type === $scope.activeb;
+};
+
+$scope.tohitchart = [
+            ['4+', '4+', '5+','5+', '5+', '5+','5+', '5+', '5+','5+'],
+            ['3+', '4+', '4+','5+', '5+', '5+','5+', '5+', '5+','5+'],
+            ['3+', '3+', '4+','4+', '4+', '4+','5+', '5+', '5+','5+'],
+            ['3+', '3+', '3+','4+', '4+', '4+','4+', '4+', '5+','5+'],
+            ['3+', '3+', '3+','3+', '4+', '4+','4+', '4+', '4+','4+'],
+            ['3+', '3+', '3+','3+', '3+', '4+','4+', '4+', '4+','4+'],
+            ['3+', '3+', '3+','3+', '3+', '3+','4+', '4+', '4+','4+'],
+            ['3+', '3+', '3+','3+', '3+', '3+','3+', '4+', '4+','4+'],
+            ['3+', '3+', '3+','3+', '3+', '3+','3+', '3+', '4+','4+'],
+            ['3+', '3+', '3+','3+', '3+', '3+','3+', '3+', '3+','4+']
+           ];
+
+           $scope.towoundchart = [
+            ['4+', '5+', '6+','6+', '-', '-','-', '-', '-','-'],
+            ['3+', '4+', '5+','6+', '6+', '-','-', '-', '-','-'],
+            ['2+', '3+', '4+','5+', '6+', '6+','-', '-', '-','-'],
+            ['2+', '2+', '3+','4+', '5+', '6+','6+', '-', '-','-'],
+            ['2+', '2+', '2+','3+', '4+', '5+','6+', '6+', '-','-'],
+            ['2+', '2+', '2+','2+', '3+', '4+','5+', '6+', '6+','-'],
+            ['2+', '2+', '2+','2+', '2+', '3+','4+', '5+', '6+','6+'],
+            ['2+', '2+', '2+','2+', '2+', '2+','3+', '4+', '5+','6+'],
+            ['2+', '2+', '2+','2+', '2+', '2+','2+', '3+', '4+','5+'],
+            ['2+', '2+', '2+','2+', '2+', '2+','2+', '2+', '3+','4+']
+           ];
+
+function calcstats() {
+$scope.tohitroll=$scope.tohitchart[$scope.activea][$scope.activeb]
+$scope.towoundroll=$scope.towoundchart[$scope.activea][$scope.activeb]
+}
+
+
+
     })
     ///////////////////////////
     .controller('RuleCtrl', function($scope, $http, $stateParams) {

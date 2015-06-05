@@ -44,7 +44,8 @@ angular.module('WarBuddy', ['ionic', 'WarBuddy.controllers'])
                 url: '/charts',
                 views: {
                     'tab-charts': {
-                        templateUrl: 'templates/tab-charts.html'
+                        templateUrl: 'templates/tab-charts.html',
+                        controller: 'ChartCtrl'
                     }
                 }
             })
@@ -54,6 +55,15 @@ angular.module('WarBuddy', ['ionic', 'WarBuddy.controllers'])
                     'tab-units': {
                         templateUrl: 'templates/tab-units.html',
                         controller: 'UnitListCtrl'
+                    }
+                }
+            })
+            .state('tab.add', {
+                url: '/add',
+                views: {
+                    'tab-add': {
+                        templateUrl: 'templates/addItem.html',
+                        controller: 'addCtrl'
                     }
                 }
             })

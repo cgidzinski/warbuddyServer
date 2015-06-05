@@ -240,7 +240,7 @@ $http.delete('http://evg31337.com:3001/API_Units/'+item._id) .
         success(function(data, status, headers, config) {
              console.log("Connection Ok");
             console.log(data + status + headers);
-            //item._id = null;  
+            item._id = null;  
             });
 
 
@@ -251,7 +251,6 @@ $http.post('http://evg31337.com:3001/API_Units/',item) .
              console.log("Connection Ok");
             console.log(data + status + headers);
             UnitGet();
-           //item._id = data._id
             });
 
 

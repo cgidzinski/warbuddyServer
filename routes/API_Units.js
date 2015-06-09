@@ -21,11 +21,9 @@ router.post('/', function(req, res, next) {
   });
 });
 
-
-
-/* PUT /todos */
-router.put('/', function(req, res, next) {
-  API.update(req.body, function (err, post) {
+/* PUT /todos/:id */
+router.put('/:id', function(req, res, next) {
+  API.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });

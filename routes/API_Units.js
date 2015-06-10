@@ -6,9 +6,9 @@ var API = require('../models/Units_Schemas.js');
 
 /* GET /todos listing. */
 router.get('/', function(req, res, next) {
-  API.find(function (err, todos) {
+  API.find(function (err, post) {
     if (err) return next(err);
-    res.json(todos);
+    res.json(post);
   });
 });
 

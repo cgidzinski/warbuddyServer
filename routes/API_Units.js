@@ -8,7 +8,8 @@ var API = require('../models/Units_Schemas.js');
 router.get('/', function(req, res, next) {
   API.find(function (err, post) {
     if (err) return next(err);
-    res.json(post);
+    res.json({ message: 'Bear updated!' });
+    // res.json(post);
   });
 });
 

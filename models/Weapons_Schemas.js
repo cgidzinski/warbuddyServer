@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 
 var WeaponsSchema = new mongoose.Schema({
   name: String,
+  description: String,
   range: String,
   strength: String,
   ap: String,
